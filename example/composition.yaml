@@ -19,6 +19,9 @@ spec:
         base:
           apiVersion: s3.aws.upbound.io/v1beta1
           kind: Bucket
+          metadata:
+            annotations:
+              fn.crossplane.io/pause-when-ready: "true"
           spec:
             forProvider:
               region: us-east-2

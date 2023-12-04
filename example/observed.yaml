@@ -1,0 +1,24 @@
+---
+apiVersion: s3.aws.upbound.io/v1beta1
+kind: Bucket
+metadata:
+  annotations:
+    crossplane.io/composition-resource-name: bucket
+    fn.crossplane.io/pause-when-ready: "true"
+  generateName: any-xr-
+  labels:
+    crossplane.io/composite: any-xr
+  ownerReferences:
+  - apiVersion: example.crossplane.io/v1
+    blockOwnerDeletion: true
+    controller: true
+    kind: XR
+    name: any-xr
+    uid: ""
+spec:
+  forProvider:
+    region: us-east-2
+status:
+  conditions:
+    - type: "Ready"
+      status: "True"

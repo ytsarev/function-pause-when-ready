@@ -8,9 +8,8 @@ import (
 
 	fnv1beta1 "github.com/crossplane/function-sdk-go/proto/v1beta1"
 	"github.com/crossplane/function-sdk-go/request"
+	"github.com/crossplane/function-sdk-go/resource"
 	"github.com/crossplane/function-sdk-go/response"
-
-	"github.com/crossplane/function-template-go/input/v1beta1"
 )
 
 // Function returns whatever response you ask it to.
@@ -26,15 +25,28 @@ func (f *Function) RunFunction(_ context.Context, req *fnv1beta1.RunFunctionRequ
 
 	rsp := response.To(req, response.DefaultTTL)
 
-	in := &v1beta1.Input{}
-	if err := request.GetInput(req, in); err != nil {
-		response.Fatal(rsp, errors.Wrapf(err, "cannot get Function input from %T", req))
+	desired, err := request.GetDesiredComposedResources(req)
+	if err != nil {
+		response.Fatal(rsp, errors.Wrapf(err, "cannot get desired composed resources from %T", req))
 		return rsp, nil
 	}
 
-	// TODO: Add your Function logic here!
-	response.Normalf(rsp, "I was run with input %q!", in.Example)
-	f.log.Info("I was run!", "input", in.Example)
+	for name, dr := range desired {
+		log := f.log.WithValues("desired-resource-name", name)
+
+		annotation := dr.Resource.GetAnnotations()["fn.crossplane.io/pause-when-ready"]
+		if annotation == "true" && dr.Ready == resource.ReadyTrue {
+			log.Debug("Detected the resource to pause when ready:")
+			setAnnotations := dr.Resource.GetAnnotations()
+			setAnnotations["crossplane.io/paused"] = "true"
+			dr.Resource.SetAnnotations(setAnnotations)
+		}
+	}
+
+	if err := response.SetDesiredComposedResources(rsp, desired); err != nil {
+		response.Fatal(rsp, errors.Wrapf(err, "cannot set desired composed resources from %T", req))
+		return rsp, nil
+	}
 
 	return rsp, nil
 }
