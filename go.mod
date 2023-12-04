@@ -1,4 +1,4 @@
-module github.com/crossplane/function-template-go
+module github.com/crossplane-contrib/function-pause-when-ready
 
 go 1.21
 
@@ -8,6 +8,7 @@ require (
 	github.com/alecthomas/kong v0.8.1
 	github.com/crossplane/crossplane-runtime v1.14.2
 	github.com/crossplane/function-sdk-go v0.1.0
+	github.com/crossplane/function-template-go v0.0.0-20231116210557-9c3c69909f6a
 	github.com/google/go-cmp v0.6.0
 	google.golang.org/protobuf v1.31.0
 	k8s.io/apimachinery v0.28.4
@@ -45,7 +46,6 @@ require (
 	github.com/spf13/afero v1.10.0 // indirect
 	github.com/spf13/cobra v1.7.0 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect
-	github.com/stretchr/testify v1.8.4 // indirect
 	go.uber.org/multierr v1.11.0 // indirect
 	go.uber.org/zap v1.26.0 // indirect
 	golang.org/x/mod v0.13.0 // indirect
