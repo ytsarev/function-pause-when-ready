@@ -10,16 +10,31 @@ $ go run . --insecure --debug
 
 ```shell
 # Then, in another terminal, call it with these example manifests
-$ crossplane beta render xr.yaml composition.yaml functions.yaml -r
+$ crossplane beta render example/xr.yaml example/composition.yaml example/functions.yaml -o example/observed.yaml -r
 ---
-apiVersion: example.crossplane.io/v1
-kind: XR
+apiVersion: test.fn.upbound.io/v1alpha1
+kind: AnyXR
 metadata:
-  name: example-xr
+  name: any-xr
 ---
-apiVersion: render.crossplane.io/v1beta1
-kind: Result
-message: I was run with input "Hello world"!
-severity: SEVERITY_NORMAL
-step: run-the-template
+apiVersion: s3.aws.upbound.io/v1beta1
+kind: Bucket
+metadata:
+  annotations:
+    crossplane.io/composition-resource-name: bucket
+    crossplane.io/paused: "true"
+    fn.crossplane.io/pause-when-ready: "true"
+  generateName: any-xr-
+  labels:
+    crossplane.io/composite: any-xr
+  ownerReferences:
+  - apiVersion: test.fn.upbound.io/v1alpha1
+    blockOwnerDeletion: true
+    controller: true
+    kind: AnyXR
+    name: any-xr
+    uid: ""
+spec:
+  forProvider:
+    region: us-east-2
 ```

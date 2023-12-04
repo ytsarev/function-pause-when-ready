@@ -4,13 +4,13 @@ metadata:
   name: function-pause-when-ready
 spec:
   compositeTypeRef:
-    apiVersion: example.crossplane.io/v1
-    kind: XR
+    apiVersion: test.fn.upbound.io/v1alpha1
+    kind: AnyXR
   mode: Pipeline
   pipeline:
   - step: patch-and-transform
     functionRef:
-      name: function-patch-and-transform
+      name: upbound-function-patch-and-transform
     input:
       apiVersion: pt.fn.crossplane.io/v1beta1
       kind: Resources
@@ -27,4 +27,4 @@ spec:
               region: us-east-2
   - step: pause-when-ready
     functionRef:
-      name: function-pause-when-ready
+      name: upbound-function-pause-when-ready

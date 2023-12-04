@@ -1,5 +1,5 @@
-apiVersion: example.crossplane.io/v1
-kind: XR
+apiVersion: test.fn.upbound.io/v1alpha1
+kind: AnyXR
 metadata:
   name: any-xr
 spec: {}

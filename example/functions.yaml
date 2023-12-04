@@ -2,17 +2,17 @@
 apiVersion: pkg.crossplane.io/v1beta1
 kind: Function
 metadata:
-  name: function-pause-when-ready
+  name: upbound-function-pause-when-ready
   annotations:
     # This tells crossplane beta render to connect to the function locally.
     render.crossplane.io/runtime: Development
 spec:
   # This is ignored when using the Development runtime.
-  package: function-pause-when-ready
+  package: xpkg.upbound.io/xnull/function-pause-when-ready:v0.1.0
 ---
 apiVersion: pkg.crossplane.io/v1beta1
 kind: Function
 metadata:
-  name: function-patch-and-transform
+  name: upbound-function-patch-and-transform
 spec:
-  package: xpkg.upbound.io/crossplane-contrib/function-patch-and-transform:v0.2.1
+  package: xpkg.upbound.io/upbound/function-patch-and-transform:v0.2.1
