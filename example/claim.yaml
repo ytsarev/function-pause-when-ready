@@ -1,0 +1,5 @@
+apiVersion: test.fn.upbound.io/v1alpha1
+kind: AnyClaim
+metadata:
+  name: any-claim
+spec: {}

@@ -8,7 +8,7 @@ metadata:
     render.crossplane.io/runtime: Development
 spec:
   # This is ignored when using the Development runtime.
-  package: xpkg.upbound.io/xnull/function-pause-when-ready:v0.1.0
+  package: xpkg.upbound.io/xnull/function-pause-when-ready:v0.1.1
 ---
 apiVersion: pkg.crossplane.io/v1beta1
 kind: Function

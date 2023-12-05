@@ -3,10 +3,14 @@ kind: CompositeResourceDefinition
 metadata:
   name: anyxrs.test.fn.upbound.io
 spec:
+  defaultCompositeDeletePolicy: Foreground
   group: test.fn.upbound.io
   names:
     kind: AnyXR
     plural: anyxrs
+  claimNames:
+    kind: AnyClaim
+    plural: anyclaims
   versions:
     - name: v1alpha1
       served: true
