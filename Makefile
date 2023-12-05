@@ -1,5 +1,5 @@
 REPO ?= xnull/function-pause-when-ready
-TAG ?= v0.1.1
+TAG ?= v0.1.2
 
 .PHONY: test
 test:

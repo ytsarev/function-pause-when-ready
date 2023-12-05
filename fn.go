@@ -38,7 +38,12 @@ func (f *Function) RunFunction(_ context.Context, req *fnv1beta1.RunFunctionRequ
 		if annotation == "true" && dr.Ready == resource.ReadyTrue {
 			log.Debug("Detected the resource to pause when ready:")
 			setAnnotations := dr.Resource.GetAnnotations()
-			deletionTimestamp := dr.Resource.GetDeletionTimestamp()
+			oxr, err := request.GetObservedCompositeResource(req)
+			if err != nil {
+				response.Fatal(rsp, errors.Wrapf(err, "cannot get observed composite resource from %T", req))
+				return rsp, nil
+			}
+			deletionTimestamp := oxr.Resource.GetDeletionTimestamp()
 			if deletionTimestamp == nil {
 				setAnnotations["crossplane.io/paused"] = "true"
 			} else {

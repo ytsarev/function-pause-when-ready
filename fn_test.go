@@ -161,7 +161,8 @@ func TestRunFunction(t *testing.T) {
 								"apiVersion": "test.crossplane.io/v1",
 								"kind": "TestXR",
 								"metadata": {
-									"name": "my-test-xr"
+									"name": "my-test-xr",
+									"deletionTimestamp": "2023-12-04T23:58:19Z"
 								}
 							}`),
 						},
@@ -174,8 +175,7 @@ func TestRunFunction(t *testing.T) {
 										"name": "my-test-composed",
 										"annotations": {
 										   "fn.crossplane.io/pause-when-ready": "true"
-										},
-										"deletionTimestamp": "2023-12-04T23:58:19Z"
+										}
 									},
 									"spec": {},
 									"status": {
@@ -209,8 +209,7 @@ func TestRunFunction(t *testing.T) {
 										"name": "my-test-composed",
 										"annotations": {
 										   "fn.crossplane.io/pause-when-ready": "true"
-										},
-										"deletionTimestamp": "2023-12-04T23:58:19Z"
+										}
 									},
 									"spec": {},
 									"status": {
@@ -251,8 +250,7 @@ func TestRunFunction(t *testing.T) {
 										"annotations": {
 										   "fn.crossplane.io/pause-when-ready": "true",
 										   "crossplane.io/paused": "false"
-										},
-										"deletionTimestamp": "2023-12-04T23:58:19Z"
+										}
 									},
 									"spec": {},
 									"status": {
