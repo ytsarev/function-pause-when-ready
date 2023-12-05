@@ -38,7 +38,12 @@ func (f *Function) RunFunction(_ context.Context, req *fnv1beta1.RunFunctionRequ
 		if annotation == "true" && dr.Ready == resource.ReadyTrue {
 			log.Debug("Detected the resource to pause when ready:")
 			setAnnotations := dr.Resource.GetAnnotations()
-			setAnnotations["crossplane.io/paused"] = "true"
+			deletionTimestamp := dr.Resource.GetDeletionTimestamp()
+			if deletionTimestamp == nil {
+				setAnnotations["crossplane.io/paused"] = "true"
+			} else {
+				setAnnotations["crossplane.io/paused"] = "false"
+			}
 			dr.Resource.SetAnnotations(setAnnotations)
 		}
 	}
